@@ -10,6 +10,14 @@ Since SQL is cool and Bash is super fast - that's what we've got:
 * Uses transactions for DDLs (per migration)
 * Stores schema SQL file so you can _load_ schema just by `psql`ing in CI
 
+## Download
+```bash
+curl -L https://raw.githubusercontent.com/Schniz/migrate.sh/master/migrate.sh > migrate.sh
+```
+
+## Update
+Same as download :boom:
+
 ## Usage
 
 ### Create a migration

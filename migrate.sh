@@ -1,6 +1,10 @@
 #!/bin/bash
 # Runs migrations on PostgreSQL
 
+# Wow wow! are you editing this file? <3
+# Contribute your edit to help the community and for a world fame!
+# https://github.com/Schniz/migrate.sh/edit/master/migrate.sh
+
 set -e
 
 function make_new_migration() {

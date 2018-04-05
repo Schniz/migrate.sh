@@ -73,6 +73,13 @@ function dump_schema() {
   echo "  --> Wrote db/schema.sql"
 }
 
+function reset_db() {
+  psql $DATABASE_URL <<< "
+    drop schema public cascade;
+    create schema public;
+  "
+}
+
 function show_help() {
   echo "Usage:"
   echo "------"
@@ -81,6 +88,7 @@ function show_help() {
   echo "$0 schema:dump             - dump db schema"
   echo "$0 schema:load             - load db schema"
   echo "$0 up                      - run migrations"
+  echo "$0 danger:reset            - resets the database state"
   echo "$0 help                    - show this message"
 }
 
@@ -102,6 +110,10 @@ function main_migrate() {
     schema:load)
       verify_database_url
       psql $DATABASE_URL -f db/schema.sql
+      ;;
+    danger:reset)
+      verify_database_url
+      reset_db
       ;;
     up)
       verify_database_url

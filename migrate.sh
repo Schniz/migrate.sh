@@ -45,7 +45,12 @@ function run_migrations() {
     echo "==================="
     for PENDING_MIGRATION in $PENDING_MIGRATIONS; do
       CONTENTS=$(cat db/migrations/$PENDING_MIGRATION)
-      CONTENTS_WITH_MIGRATION_RESULT="begin; $CONTENTS; insert into migrations (filename) values ('$(basename $PENDING_MIGRATION)'); commit;"
+      CONTENTS_WITH_MIGRATION_RESULT="
+        begin;
+        $CONTENTS;
+        insert into migrations (filename) values ('$(basename $PENDING_MIGRATION)');
+        commit;
+      "
       echo "  --> Running $PENDING_MIGRATION"
       cat <<< "$CONTENTS_WITH_MIGRATION_RESULT"
       psql $DATABASE_URL 1>/dev/null <<< $CONTENTS_WITH_MIGRATION_RESULT
